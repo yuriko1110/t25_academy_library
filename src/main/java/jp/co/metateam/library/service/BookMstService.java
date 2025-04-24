@@ -50,7 +50,7 @@ public class BookMstService {
 
 
         public String serchIsbn(String isbn) {
-        Optional<BookMst> bookMstOptional = bookMstRepository.selectByIsbn(Long.parseLong(isbn));
+        Optional<BookMst> bookMstOptional = bookMstRepository.selectByIsbn(isbn);
         if (bookMstOptional.isPresent()) {
         return bookMstOptional.get().getIsbn(); 
         }

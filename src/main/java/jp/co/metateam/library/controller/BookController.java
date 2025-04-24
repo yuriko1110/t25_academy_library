@@ -95,11 +95,11 @@ public class BookController {
 
         ra.addFlashAttribute("bookMstDto", bookMstDto);
         ra.addFlashAttribute("org.springframework.validation.BindingResult.bookMstDto", result);
-    
+        return "book/add"; 
+    }
         return "redirect:/book/index";
-        }
-        return "redirect:/book/add";
      }
+
 }
 
 
