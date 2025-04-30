@@ -63,3 +63,15 @@
   color: #0000EE;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: solid 1px black;
+}
+
+table th{
+  color: black;
+  background: gray;
+}
