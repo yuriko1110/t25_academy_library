@@ -15,9 +15,13 @@
             <div class="inner_contens">
                 <div class="page_title">書籍一覧</div>
                 <!-- 書籍登録ボタン -->
-                <a th:href="@{/book/add}">
-                    <button type="button">書籍登録</button>
-                </a>
+                <div class="button-area">
+                    <a th:href="@{/book/add}" class="bookAdd_button_link">
+                      <button type="button" class="bookAdd_button">
+                        書籍登録
+                      </button>
+                    </a>
+                  </div>
                 <!-- 書籍一覧テーブル -->
                 <table border="1">
                     <thead>
