@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
+import jp.co.metateam.library.model.Account;
+import jp.co.metateam.library.model.AccountDto;
 import jp.co.metateam.library.model.BookMst;
 import jp.co.metateam.library.model.BookMstDto;
 import jp.co.metateam.library.service.BookMstService;
@@ -44,11 +46,65 @@ public class BookController {
 
     @GetMapping("/book/add")
     public String add(Model model) {
+    
         if (!model.containsAttribute("bookMstDto")) {
             model.addAttribute("bookMstDto", new BookMstDto());
         }
 
-        return "book/add";
+        return "book/add";//書籍登録画面
     }
+
+    @PostMapping("/book/add")
+        public String register(@Valid @ModelAttribute BookMstDto bookMstDto, BindingResult result, RedirectAttributes ra) {
+           
+        if (bookMstDto.getTitle() == null || bookMstDto.getTitle().trim().isEmpty()) {
+        result.rejectValue("title", "error.value", "タイトルを入力してください");
+        }
+
     
+        if (bookMstDto.getIsbn() == null || bookMstDto.getIsbn().trim().isEmpty()) {
+        result.rejectValue("isbn", "error.value", "ISBNを入力してください");
+        }
+
+        if (bookMstDto.getTitle().length() > 255) {
+        result.rejectValue("title", "error.value", "タイトルは255文字以内で入力してください");
+        }
+
+        if (bookMstDto.getIsbn().length() != 13) {
+            result.rejectValue("isbn", "error.value", "ISBNは13桁で入力してください");
+            }
+
+        if (!bookMstDto.getIsbn().matches("^[0-9]+$")) {
+        result.rejectValue("isbn", "error.value", "ISBNは半角数字で入力してください");
+        }
+
+
+        String existingIsbn = bookMstService.serchIsbn(bookMstDto.getIsbn());
+        if (existingIsbn != null) {
+        result.rejectValue("isbn", "error.value", "登録済みのISBNです");
+    }
+        
+        if (result.hasErrors()) {
+        return "book/add"; 
+        }
+    
+
+        try {
+            bookMstService.save(bookMstDto);
+        } catch (Exception e) {
+
+        ra.addFlashAttribute("bookMstDto", bookMstDto);
+        ra.addFlashAttribute("org.springframework.validation.BindingResult.bookMstDto", result);
+        return "book/add"; 
+    }
+        return "redirect:/book/index";
+     }
+
 }
+
+
+
+
+
+
+       

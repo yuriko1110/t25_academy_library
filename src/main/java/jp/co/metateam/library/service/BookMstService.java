@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.validation.Valid;
+import jp.co.metateam.library.model.Account;
+import jp.co.metateam.library.model.AccountDto;
 import jp.co.metateam.library.model.BookMst;
 import jp.co.metateam.library.model.BookMstDto;
 import jp.co.metateam.library.repository.BookMstRepository;
@@ -42,8 +47,24 @@ public class BookMstService {
 
         return bookMstDtoList;
     }
-    
-}
 
+
+        public String serchIsbn(String isbn) {
+        Optional<BookMst> bookMstOptional = bookMstRepository.selectByIsbn(isbn);
+        if (bookMstOptional.isPresent()) {
+        return bookMstOptional.get().getIsbn(); 
+        }
+        return null; 
+    }
+
+
+       public void save(BookMstDto bookMstDto) {
+        BookMst entity = new BookMst();
+        entity.setIsbn(bookMstDto.getIsbn());
+        entity.setTitle(bookMstDto.getTitle());
+        this.bookMstRepository.save(entity);
+
+}
+}
 
 

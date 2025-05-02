@@ -41,8 +41,6 @@ public class RegisterController {
         return "register";
     }
 
-    
-
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute AccountDto accountDto, BindingResult result, RedirectAttributes ra) {
         try {
