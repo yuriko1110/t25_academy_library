@@ -15,6 +15,30 @@
   font-size: 18px;
 }
 
+.bookAdd_button {
+  display: inline-flex;      /* インラインで右寄せOK */
+  align-items: center;
+  gap: 8px;
+  background-color: #b3efb5;
+  color: rgb(87, 87, 87);
+  padding: 6px 15px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-area {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-area {
+  text-align: right;
+  margin-bottom: 25px; /* 下に余白を追加（任意） */
+}
+
 .books_table td{
   text-align: left;
   vertical-align: top;
@@ -61,5 +85,19 @@
 
 .books_table td a{
   color: #0000EE;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: solid 1px black;
+  font-size: 0.70em;
+}
+
+table th{
+  color: rgb(60, 33, 4);
+  background: rgb(219, 219, 219);
 }
 
